@@ -1,45 +1,55 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/connection');
 
-const vehicleSchema = new mongoose.Schema({
+const Vehicle = sequelize.define('Vehicle', {
     type: {
-        type: String,
-        required: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
     model: {
-        type: String,
-        required: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
     wheels: {
-        type: Number,
-        required: true
+      type: DataTypes.STRING,
+      allowNull: false
     }
-});
-
-const bookingSchema = new mongoose.Schema({
-    userFirstName: {
-        type: String,
-        required: true
+  });
+  
+  // Define Booking model
+  const Booking = sequelize.define('Booking', {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    userLastName: {
-        type: String,
-        required: true
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    vehicle: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Vehicle',
-        required: true
+    vehicleModel: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      
+    },
+    vehicleType: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    wheels: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     startDate: {
-        type: Date,
-        required: true
+      type: DataTypes.DATE
     },
     endDate: {
-        type: Date,
-        required: true
+      type: DataTypes.DATE
     }
-});
+  });
 
-const Vehicle = mongoose.model('Vehicle', vehicleSchema);
-const Booking = mongoose.model('Booking', bookingSchema);
+(async () => {
+    await sequelize.sync();
+    console.log("All models were synchronized successfully.");
+  })();
 
 module.exports = { Vehicle, Booking };
