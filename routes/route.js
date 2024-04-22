@@ -61,11 +61,12 @@ router.post('/bookings', async (req, res) => {
             where: {
               firstName: firstName,
               lastName: lastName,
-              vehicleModel: vehicleModel
+              vehicleModel: vehicleModel,
+              startDate: startDate
             }
           });
         console.log(userPresent)
-        if(userPresent?.firstName && userPresent?.lastName && userPresent?.vehicleModel){
+        if(userPresent?.firstName && userPresent?.lastName && userPresent?.vehicleModel && userPresent?.startDate){
             res.json({ message: "User already booked this vehicle" });
         }
 
